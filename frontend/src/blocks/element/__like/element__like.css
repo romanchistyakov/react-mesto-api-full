@@ -1,0 +1,18 @@
+.element__like {
+  grid-area: like;
+  margin-top: 22px;
+  justify-self: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../images/like.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.element__like:hover {
+  opacity: 0.5;
+}

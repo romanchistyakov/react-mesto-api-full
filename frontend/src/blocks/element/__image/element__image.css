@@ -1,0 +1,9 @@
+.element__image {
+  grid-area: image;
+  width: 282px;
+  height: 282px;
+  object-fit: cover;
+  object-position: top;
+  overflow: hidden;
+  cursor: pointer;
+}

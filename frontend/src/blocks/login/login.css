@@ -1,0 +1,10 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 0 0 0;
+    max-width: 358px;
+    justify-self: center;
+    margin: 0 auto;
+  }

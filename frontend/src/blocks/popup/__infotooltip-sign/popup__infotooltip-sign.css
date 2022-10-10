@@ -1,0 +1,9 @@
+.popup__infotooltip-sign {
+    margin-top: 60px;
+}
+
+@media screen and (max-width: 900px) {
+    .popup__infotooltip-sign {
+        margin-top: 50px;
+    }
+  }

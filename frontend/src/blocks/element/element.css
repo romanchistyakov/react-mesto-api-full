@@ -1,0 +1,13 @@
+.element {
+  width: 282px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  overflow: hidden;
+  display: grid;
+  grid-template-areas: 
+  "image image"
+  "name like";
+  grid-template-rows: 282px 80px;
+  grid-template-columns: auto 64px;
+  position: relative;
+}
