@@ -7,6 +7,6 @@ export const configValidation = {
 };
 
 export  const configApi = {
-    url: 'https://api.myplace.nomoredomains.icu',
+    url: 'http://api.myplace.nomoredomains.icu',
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzQ0N2YzZDVmNjQyYTg3ZDFjODMxMGUiLCJpYXQiOjE2NjU0Nzk4NDQsImV4cCI6MTY2NjA4NDY0NH0.erRyQHQAhZY2RmEYsfwzWzrYukeCwNh-Nh3VX1s3Z1w'
 }

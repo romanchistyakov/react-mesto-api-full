@@ -3,7 +3,7 @@ import {configApi} from './constants'
 class Api {
     constructor(configApi) {
         this._url = configApi.url;
-        this._token = configApi.token;
+        this._token = localStorage.getItem('token');
     }
 
     _fetchRoutine = (res) => {
@@ -18,7 +18,7 @@ class Api {
     getInitialCards() {
         return fetch(`${this._url}/cards`, {
             headers: {
-              authorization: this._token
+              authorization: `Bearer ${this._token}`
             }
         })
         .then(this._fetchRoutine)
@@ -28,7 +28,7 @@ class Api {
         return fetch(`${this._url}/cards`, {
             method: 'POST',
             headers: {
-              authorization: this._token,
+              authorization: `Bearer ${this._token}`,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -40,7 +40,7 @@ class Api {
         return fetch(`${this._url}/cards/${cardId}`, {
             method: 'DELETE',
             headers: {
-              authorization: this._token,
+              authorization: `Bearer ${this._token}`,
               'Content-Type': 'application/json'
             }
         })
@@ -50,7 +50,7 @@ class Api {
     getUserInfo() {
         return fetch(`${this._url}/users/me`, {
             headers: {
-                authorization: this._token
+                authorization: `Bearer ${this._token}`
             }
         })
         .then(this._fetchRoutine)
@@ -60,7 +60,7 @@ class Api {
         return fetch(`${this._url}/users/me`, {
             method: 'PATCH',
             headers: {
-              authorization: this._token,
+              authorization: `Bearer ${this._token}`,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -72,7 +72,7 @@ class Api {
         return fetch(`${this._url}/users/me/avatar`, {
             method: 'PATCH',
             headers: {
-              authorization: this._token,
+              authorization: `Bearer ${this._token}`,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -84,7 +84,7 @@ class Api {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
             method: `${isLiked ? 'PUT' : 'DELETE'}`,
             headers: {
-              authorization: this._token,
+              authorization: `Bearer ${this._token}`,
               'Content-Type': 'application/json'
             },
         })
@@ -94,7 +94,7 @@ class Api {
     getLikes(cardId) {
         return fetch(`${this._url}/cards/${cardId}`, {
             headers: {
-                authorization: this._token
+                authorization: `Bearer ${this._token}`
             }
         })
         .then(this._fetchRoutine)

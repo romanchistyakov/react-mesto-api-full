@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'http://api.myplace.nomoredomains.icu';
 
 const _fetchRoutine = (res) => {
     if(res.ok) {
