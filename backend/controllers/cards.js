@@ -8,7 +8,7 @@ module.exports.createCard = (req, res, next) => {
   const { _id } = req.user;
 
   Card.create({ name, link, owner: _id })
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.send(card))
     .catch((error) => {
       if (error.name === 'ValidationError') {
         next(new WrongDataError('Переданы некорректные данные при создании карточки.'));
@@ -20,7 +20,7 @@ module.exports.createCard = (req, res, next) => {
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.send({ data: cards }))
+    .then((cards) => res.send(cards))
     .catch((error) => next(error));
 };
 
@@ -34,7 +34,7 @@ module.exports.deleteCard = (req, res, next) => {
         throw new NotAuthorizedCardError('Карточка принадлежит другому пользователю.');
       }
       Card.findByIdAndDelete(cardId)
-        .then(() => res.send({ data: card }));
+        .then(() => res.send(card));
     })
     .catch((error) => {
       if (error.name === 'CastError') {
@@ -50,7 +50,7 @@ module.exports.likeCard = (req, res, next) => {
 
   Card.findByIdAndUpdate(cardId, { $addToSet: { likes: req.user._id } }, { new: true })
     .orFail(() => { throw new NotFoundError('Карточка по указанному _id не найдена.'); })
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.send(card))
     .catch((error) => {
       if (error.name === 'CastError') {
         next(new WrongDataError('Передан некорректный _id карточки'));
@@ -65,7 +65,7 @@ module.exports.dislikeCard = (req, res, next) => {
 
   Card.findByIdAndUpdate(cardId, { $pull: { likes: req.user._id } }, { new: true })
     .orFail(() => { throw new NotFoundError('Карточка по указанному _id не найдена.'); })
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.send(card))
     .catch((error) => {
       if (error.name === 'CastError') {
         next(new WrongDataError('Передан некорректный _id карточки'));

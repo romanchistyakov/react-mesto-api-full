@@ -24,7 +24,7 @@ module.exports.createUser = (req, res, next) => {
         email,
         password: hash,
       })
-        .then((user) => res.send({ data: user.toObject() }))
+        .then((user) => res.send(user.toObject()))
         .catch((error) => {
           if (error.name === 'ValidationError') {
             next(new WrongDataError('Переданы некорректные данные при создании пользователя.'));
@@ -39,7 +39,7 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.send({ data: users }))
+    .then((users) => res.send(users))
     .catch((error) => next(error));
 };
 
@@ -48,7 +48,7 @@ module.exports.getUserById = (req, res, next) => {
 
   User.findById(userId)
     .orFail(() => { throw new NotFoundError('Пользователь по указанному _id не найден.'); })
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((error) => {
       if (error.name === 'CastError') {
         next(new WrongDataError('Передан некорректный _id пользователя'));
@@ -63,7 +63,7 @@ module.exports.updateUser = (req, res, next) => {
 
   User.findByIdAndUpdate(req.user._id, { name, about }, { runValidators: true, new: true })
     .orFail(() => { throw new NotFoundError('Пользователь по указанному _id не найден.'); })
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((error) => {
       if (error.name === 'ValidationError') {
         next(new WrongDataError('Переданы некорректные данные при обновлении данных пользователя.'));
@@ -78,7 +78,7 @@ module.exports.updateAvatar = (req, res, next) => {
 
   User.findByIdAndUpdate(req.user._id, { avatar }, { runValidators: true, new: true })
     .orFail(() => { throw new NotFoundError('Пользователь по указанному _id не найден.'); })
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((error) => {
       if (error.name === 'ValidationError') {
         next(new WrongDataError('Переданы некорректные данные при обновлении аватара.'));
@@ -105,6 +105,6 @@ module.exports.login = (req, res, next) => {
 
 module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((error) => next(error));
 };

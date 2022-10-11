@@ -3,6 +3,7 @@ module.exports = (req, res, next) => {
     'http://myplace.nomoredomains.icu/',
     'https://myplace.nomoredomains.icu/',
     'localhost:3000',
+    'http://localhost:3000',
   ];
   const { origin } = req.headers;
   const { method } = req;
@@ -17,7 +18,7 @@ module.exports = (req, res, next) => {
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
     res.header('Access-Control-Allow-Headers', requestHeaders);
 
-    return res.end;
+    return res.end();
   }
 
   return next();

@@ -1,9 +1,6 @@
-import {configApi} from './constants'
-
 class Api {
-    constructor(configApi) {
-        this._url = configApi.url;
-        this._token = localStorage.getItem('token');
+    constructor() {
+        this._url = 'https://api.myplace.nomoredomains.icu';
     }
 
     _fetchRoutine = (res) => {
@@ -18,7 +15,7 @@ class Api {
     getInitialCards() {
         return fetch(`${this._url}/cards`, {
             headers: {
-              authorization: `Bearer ${this._token}`
+              authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
         .then(this._fetchRoutine)
@@ -28,7 +25,7 @@ class Api {
         return fetch(`${this._url}/cards`, {
             method: 'POST',
             headers: {
-              authorization: `Bearer ${this._token}`,
+              authorization: `Bearer ${localStorage.getItem('token')}`,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -40,7 +37,7 @@ class Api {
         return fetch(`${this._url}/cards/${cardId}`, {
             method: 'DELETE',
             headers: {
-              authorization: `Bearer ${this._token}`,
+              authorization: `Bearer ${localStorage.getItem('token')}`,
               'Content-Type': 'application/json'
             }
         })
@@ -50,7 +47,7 @@ class Api {
     getUserInfo() {
         return fetch(`${this._url}/users/me`, {
             headers: {
-                authorization: `Bearer ${this._token}`
+                authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
         .then(this._fetchRoutine)
@@ -60,7 +57,7 @@ class Api {
         return fetch(`${this._url}/users/me`, {
             method: 'PATCH',
             headers: {
-              authorization: `Bearer ${this._token}`,
+              authorization: `Bearer ${localStorage.getItem('token')}`,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -72,7 +69,7 @@ class Api {
         return fetch(`${this._url}/users/me/avatar`, {
             method: 'PATCH',
             headers: {
-              authorization: `Bearer ${this._token}`,
+              authorization: `Bearer ${localStorage.getItem('token')}`,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -82,9 +79,9 @@ class Api {
 
     putLike(cardId, isLiked) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
-            method: `${isLiked ? 'PUT' : 'DELETE'}`,
+            method: `${!isLiked ? 'PUT' : 'DELETE'}`,
             headers: {
-              authorization: `Bearer ${this._token}`,
+              authorization: `Bearer ${localStorage.getItem('token')}`,
               'Content-Type': 'application/json'
             },
         })
@@ -94,13 +91,13 @@ class Api {
     getLikes(cardId) {
         return fetch(`${this._url}/cards/${cardId}`, {
             headers: {
-                authorization: `Bearer ${this._token}`
+                authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
         .then(this._fetchRoutine)
     }
 }
 
-const api = new Api(configApi);
+const api = new Api();
 
 export default api;

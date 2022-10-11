@@ -4,7 +4,7 @@ import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
 import ImagePopup from './ImagePopup';
-import api from '../utils/Api'; 
+import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -39,7 +39,7 @@ function App() {
       .then((res) => {
         if(res) {
           setLoggedIn(true);
-          setEmail(res.data.email);
+          setEmail(res.email);
           history.push('/');
         }
       })
@@ -58,7 +58,7 @@ function App() {
   },[]);
 
   function handleRegister(data) {
-    
+
     auth.register(data.email, data.password)
     .then(() => {
         setIsRegistrationComplete(true)
@@ -72,7 +72,6 @@ function App() {
   }
 
   function handleLogin(data) {
-
     auth.login(data.email, data.password)
     .then((res) => {
       if (res.token) {
@@ -87,7 +86,10 @@ function App() {
         history.push('/');
       }
     })
-    .catch(console.log)
+    .catch((error) => {
+      console.log(error);
+      handleInfoTooltipOpen();
+    })
   }
 
   function handleInfoTooltipOpen() {
@@ -102,7 +104,7 @@ function App() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
-  function handleAddPlaceClick() { 
+  function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
@@ -139,19 +141,21 @@ function App() {
   }
 
   useEffect(() => {
-    api.getUserInfo()
-    .then(setCurrentUser)
-    .catch(console.log);
+    if (loggedIn) {
+      api.getUserInfo()
+      .then(setCurrentUser)
+      .catch(console.log);
 
-    api.getInitialCards()
-    .then(setCards)
-    .catch(console.log);
+      api.getInitialCards()
+      .then((cards) => setCards(cards.reverse()))
+      .catch(console.log);
+    }
   },[loggedIn]);
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-    
-    api.putLike(card._id, !isLiked)
+    const isLiked = card.likes.some(i => i === currentUser._id);
+
+    api.putLike(card._id, isLiked)
     .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     })
@@ -192,7 +196,7 @@ function App() {
         document.removeEventListener('keydown', closeByEscape);
       }
     }
-  }, [isOpen]) 
+  }, [isOpen])
 
   return (
     <div className="App">
@@ -229,9 +233,9 @@ function App() {
 
         </Switch>
 
-        <EditProfilePopup 
-            isOpen={isEditProfilePopupOpen} 
-            onClose={closeAllPopups} 
+        <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
             isLoading={isLoading}
         />
@@ -240,7 +244,7 @@ function App() {
 
       {loggedIn && <Footer />}
 
-      <AddPlacePopup 
+      <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
@@ -256,12 +260,12 @@ function App() {
         isLoading={isLoading}
       />
 
-      <ImagePopup 
+      <ImagePopup
         card={selectedCard}
         onClose={closeAllPopups}
       />
 
-      <InfoTooltip 
+      <InfoTooltip
         onClose={closeAllPopups}
         isOpen={isInfoTooltipPopupOpen}
         isComplete={isRegistrationComplete}

@@ -19,17 +19,17 @@ function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick, cards, onCa
                 </div>
                 <button type="button" className="profile__add-button" aria-label="Кнопка добавить фото" onClick={onAddPlace}></button>
             </section>
-      
+
             <section className="elements">
                 <ul className="elements-grid">
                     {cards.map((item) => {
                         return(
-                        <Card 
+                        <Card
                             key={item._id}
-                            card={item} 
-                            onCardClick={onCardClick} 
-                            onCardLike={onCardLike} 
-                            onCardDelete={onCardDelete} 
+                            card={item}
+                            onCardClick={onCardClick}
+                            onCardLike={onCardLike}
+                            onCardDelete={onCardDelete}
                         />
                         );
                     })}
