@@ -12,7 +12,7 @@ const url = require('./utils/url');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 
 const NotFoundError = require('./errors/NotFoundError');
 
