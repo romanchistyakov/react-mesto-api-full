@@ -1,7 +1,6 @@
 class Api {
     constructor() {
-        // this._url = 'https://api.myplace.nomoredomains.icu';
-        this._url = 'http://localhost:3001'
+        this._url = 'https://api.myplace.nomoredomains.icu';
     }
 
     _fetchRoutine = (res) => {

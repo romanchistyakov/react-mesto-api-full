@@ -9,7 +9,7 @@ const cors = require('./middlewares/cors');
 const routes = require('./routes/index');
 const errorHandler = require('./middlewares/errorhandler');
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 
 const app = express();
 
