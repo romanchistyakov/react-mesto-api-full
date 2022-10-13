@@ -87,6 +87,8 @@ function App() {
       }
     })
     .catch((error) => {
+      setIsRegistrationComplete(false);
+      handleInfoTooltipOpen();
       console.log(error);
     })
   }

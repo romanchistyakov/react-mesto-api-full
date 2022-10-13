@@ -21,7 +21,7 @@ module.exports.createCard = (req, res, next) => {
 module.exports.getCards = (req, res, next) => {
   Card.find({})
     .then((cards) => res.send(cards))
-    .catch((error) => next(error));
+    .catch(next);
 };
 
 module.exports.deleteCard = (req, res, next) => {
@@ -34,7 +34,8 @@ module.exports.deleteCard = (req, res, next) => {
         throw new NotAuthorizedCardError('Карточка принадлежит другому пользователю.');
       }
       Card.findByIdAndDelete(cardId)
-        .then(() => res.send(card));
+        .then(() => res.send(card))
+        .catch(next);
     })
     .catch((error) => {
       if (error.name === 'CastError') {

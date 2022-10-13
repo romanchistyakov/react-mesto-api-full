@@ -4,7 +4,7 @@ import imageError from '../images/error.svg';
 const InfoTooltip = ({onClose, isOpen, isComplete}) => {
     const textComlete = 'Вы успешно зарегистрировались!';
     const textError = 'Что-то пошло не так! Попробуйте ещё раз.'
-    
+
     return (
         <div className={`popup ${isOpen && "popup_opened"}`}>
             <div className="popup__container">

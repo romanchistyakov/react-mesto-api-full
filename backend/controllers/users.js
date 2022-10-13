@@ -34,13 +34,14 @@ module.exports.createUser = (req, res, next) => {
             next(error);
           }
         });
-    });
+    })
+    .catch(next);
 };
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.send(users))
-    .catch((error) => next(error));
+    .catch(next);
 };
 
 module.exports.getUserById = (req, res, next) => {
@@ -106,5 +107,5 @@ module.exports.login = (req, res, next) => {
 module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => res.send(user))
-    .catch((error) => next(error));
+    .catch(next);
 };
