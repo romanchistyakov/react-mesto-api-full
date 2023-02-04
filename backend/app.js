@@ -10,10 +10,11 @@ const routes = require('./routes/index');
 const errorHandler = require('./middlewares/errorhandler');
 
 const { PORT = 3001 } = process.env;
+const { MONGO_URL } = require('./utils/config');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/mestodb');
+mongoose.connect(MONGO_URL);
 
 app.use(bodyParser.json());
 
