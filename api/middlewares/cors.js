@@ -4,6 +4,7 @@ module.exports = (req, res, next) => {
     'https://myplace.nomoredomains.icu',
     'localhost:3000',
     'http://localhost:3000',
+    'https://mesto-chistyakov.vercel.app',
   ];
   const { origin } = req.headers;
   const { method } = req;
