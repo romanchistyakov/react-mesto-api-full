@@ -1,6 +1,6 @@
 class Api {
     constructor() {
-        this._url = 'http://localhost:3001';
+        this._url = 'https://mesto-api-black.vercel.app';
     }
 
     _fetchRoutine = (res) => {

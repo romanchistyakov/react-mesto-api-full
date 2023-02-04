@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3001';
+export const BASE_URL = 'https://mesto-api-black.vercel.app';
 
 const _fetchRoutine = (res) => {
     if(res.ok) {
